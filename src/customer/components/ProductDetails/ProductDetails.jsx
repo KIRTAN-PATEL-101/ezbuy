@@ -31,6 +31,7 @@ import ProductReviewCard from "./ProductReviewCard";
 import LinearProgress from "@mui/material/LinearProgress";
 import HomeSectionCard from "../HomeSectionCard/HomeSectionCard";
 import { kurtaPage1 } from '../../../data/mens_kurta'
+import { useNavigate } from "react-router-dom";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -89,6 +90,11 @@ function classNames(...classes) {
 export default function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    navigate("/cart");
+  }
 
   return (
     <div className="bg-white lg:px-20">
@@ -131,7 +137,7 @@ export default function ProductDetails() {
             </li>
           </ol>
         </nav>
-        <section className="grid grid-cols-1 lg grid-cols-2 gap-x-8 gap-y-10 px-4 pt-10">
+        <section className="grid  lg grid-cols-2 gap-x-8 gap-y-10 px-4 pt-10">
           {/* Image gallery */}
           <div className="flex flex-col items-center">
             <div className="overflow-hidden rounded-lg max-w-[30rem] max-h-[35rem]">
@@ -264,6 +270,7 @@ export default function ProductDetails() {
                   color="secondary"
                   variant="contained"
                   sx={{ px: "2rem", py: "1rem", bgcolor: "#9155fd" }}
+                  onClick={handleAddToCart}
                 >
                   Add to cart
                 </Button>

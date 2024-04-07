@@ -4,13 +4,26 @@ import { Grid } from '@mui/material'
 import { Button } from '@mui/material'
 import { Box } from '@mui/system'
 import { TextField } from '@mui/material'
+import FormData from 'form-data'
 
 const DeliveryAddressForm = () => {
 
    const handleSubmit=(e)=>{
       e.preventDefault();
       const data = new FormData(e.currentTarget);
-      console.log('submit', data);
+
+      const address = {
+         firstName:data.get("firstName"),
+         lastName:data.get("lastName"),
+         address:data.get("address"),
+         city:data.get("city"),
+         state:data.get("state"),
+         zip:data.get("zip"),
+         phoneNumber:data.get("phoneNumber")
+
+      }
+
+      console.log('submit', address);
    }
   return (
     <div>
@@ -20,13 +33,13 @@ const DeliveryAddressForm = () => {
                <AddressCard />
                <Button sx={{mt:2, bgcolor:'RGB(145 85 253)'}} size='large' variant='contained'>
                   deliver here
-               </Button>
+               </Button> 
             </div>
          </Grid>
 
          <Grid item xs={12} lg={7}>
             <Box className='border rounded-s-md shadow-md p-5'>
-               <form onsubmit={handleSubmit}>
+               <form onSubmit={handleSubmit}>
                   <Grid container spacing={3}>
                      <Grid item xs={12} sm={6}>
                         <TextField 
