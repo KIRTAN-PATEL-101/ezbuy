@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Navigate, useNavigate } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import { getUser, register } from '../../State/Auth/Action';
+import { getUser, register } from '../../State/Auth/Action.js';
 
 const RegisterForm = () => {
 

@@ -4,8 +4,8 @@ import {LOGIN_FAILURE,GET_USER_FAILURE,GET_USER_SUCCESS,GET_USER_REQUEST, LOGIN_
 
 const token = localStorage.getItem('jwt');
 const registerRequest = ()=>({type:REGISTER_REQUEST});
-const registerSuccess = ()=>({type:REGISTER_SUCCESS,payload:user});
-const registerFailure = ()=>({type:REGISTER_FAILURE,payload:error});
+const registerSuccess = (user)=>({type:REGISTER_SUCCESS,payload:user});
+const registerFailure = (error)=>({type:REGISTER_FAILURE,payload:error});
 
 export const register = (userData)=>async(dispatch)=>{
    dispatch(registerRequest())
@@ -25,8 +25,8 @@ export const register = (userData)=>async(dispatch)=>{
 
 
 const loginRequest = ()=>({type:LOGIN_REQUEST});
-const loginSuccess = ()=>({type:LOGIN_SUCCESS,payload:user});
-const loginFailure = ()=>({type:LOGIN_FAILURE,payload:error});
+const loginSuccess = (user)=>({type:LOGIN_SUCCESS,payload:user});
+const loginFailure = (error)=>({type:LOGIN_FAILURE,payload:error});
 
 export const login = (userData)=>async(dispatch)=>{
    dispatch(loginRequest())
@@ -46,8 +46,8 @@ export const login = (userData)=>async(dispatch)=>{
 
 
 const getUserRequest = ()=>({type:GET_USER_REQUEST});
-const getUserSuccess = ()=>({type:GET_USER_SUCCESS,payload:user});
-const getUserFailure = ()=>({type:GET_USER_FAILURE,payload:error});
+const getUserSuccess = (user)=>({type:GET_USER_SUCCESS,payload:user});
+const getUserFailure = (error)=>({type:GET_USER_FAILURE,payload:error});
 
 export const getUser = (jwt)=>async(dispatch)=>{
     dispatch(getUserRequest())

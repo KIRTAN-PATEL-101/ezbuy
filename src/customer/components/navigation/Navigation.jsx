@@ -19,8 +19,10 @@ import { deepPurple } from '@mui/material/colors'
 import { Menu, MenuItem, Button, Avatar } from '@mui/material'
 import { useLocation, useNavigate } from 'react-router-dom'
 import AuthModal from '../../Auth/AuthModal'
-import { useDispatch } from 'react-redux'
-import { logout } from '../../../State/Auth/Action'
+import { useDispatch,useSelector } from 'react-redux'
+import { logout } from '../../../State/Auth/Action.js'
+import { getUser } from '../../../State/Auth/Action.js'
+
 
 
 
