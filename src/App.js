@@ -10,12 +10,14 @@ import HomePage from './customer/pages/HomePage/HomePage';
 import Routes from './Routers/CustomerRouter';
 import CustomerRouter from './Routers/CustomerRouter';
 import { Route } from 'react-router-dom';
+import AdminRouters from './Routers/AdminRouters';
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/*' element={<CustomerRouter />}></Route>
+      <Route path='/admin/*' element={<AdminRouters />}></Route>
+      <Route path='/*' element={<CustomerRouter />}></Route>
       </Routes>
       
       

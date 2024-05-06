@@ -18,6 +18,7 @@ import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@her
 import { deepPurple } from '@mui/material/colors'
 import { Menu, MenuItem, Button, Avatar } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import AuthModal from '../../Auth/AuthModal'
 
 
 
@@ -460,7 +461,7 @@ const handleCategoryClick = (category, section, item, close) => {
 
               <div className="ml-auto flex items-center">
                 <div>
-                {true ? (
+                {false ? (
                   <div>
                     <Avatar 
                       className='text-white'
@@ -520,6 +521,8 @@ const handleCategoryClick = (category, section, item, close) => {
           </div>
         </nav>
       </header>
+
+      <AuthModal handleClose={handleColse} open={openAuthModal} />
     </div>
   )
 }
