@@ -12,13 +12,15 @@
   }
   ```
 */
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { deepPurple } from '@mui/material/colors'
 import { Menu, MenuItem, Button, Avatar } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import AuthModal from '../../Auth/AuthModal'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../../State/Auth/Action'
 
 
 
@@ -159,7 +161,9 @@ export default function Navigation() {
 const openUserMenu = Boolean(anchorEl);
 const [openAuthModal, setOpenAuthModal] = useState(false);
 const jwt = localStorage.getItem('jwt');
-
+const {auth} = useSelector(store=>store);
+const dispatch=useDispatch();
+const location = useLocation();
 
 const handleUserClick = (event) => {
   setAnchorEl(event.currentTarget)
@@ -174,12 +178,36 @@ const handleOpen = () => {
 }
 
 const handleColse = () => {
-  setOpenAuthModal(false)
+  setOpenAuthModal(false);
+
 }
 
 const handleCategoryClick = (category, section, item, close) => {
   navigate(`/${category.id}/${section.id}/${item.name}`);
   close();
+}
+
+useEffect(()=>{
+  if(jwt){
+     dispatch(getUser(jwt))
+  }
+ 
+},[jwt,auth.jwt])
+
+useEffect(()=>{
+
+  if(auth.user){
+    handleColse()
+  }
+  if(location.pathname==="/login"||location.pathname==="/register"){
+    navigate(-1)
+  }
+
+},[auth.user])
+
+const handleLogout=()=>{
+dispatch(logout())
+handleCloseUserMenu()
 }
 
   return (
@@ -461,7 +489,7 @@ const handleCategoryClick = (category, section, item, close) => {
 
               <div className="ml-auto flex items-center">
                 <div>
-                {false ? (
+                {auth.use?.firstName ? (
                   <div>
                     <Avatar 
                       className='text-white'
@@ -470,7 +498,7 @@ const handleCategoryClick = (category, section, item, close) => {
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
                       sx={{bgcolor: deepPurple[500], color: "white", cursor: "pointer",}}
-                      >R</Avatar>
+                      >{auth.user?.firstName[0].toUpperCase()}</Avatar>
                     <Menu
                       id="basic-menu"
                       anchorEl={anchorEl}
@@ -485,7 +513,7 @@ const handleCategoryClick = (category, section, item, close) => {
                         </MenuItem >
                         <MenuItem onClick={() => navigate("/account/order")}> My Orders
                         </MenuItem>
-                        <MenuItem>Logut</MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
                       </Menu>
                   </div>
                 ) : (
