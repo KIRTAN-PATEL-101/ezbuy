@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../../State/Auth/Action.js';
 
-const LoginForm = () => {
+const LoginForm = ({ onCloseModal }) => {
 
    const dispatch=useDispatch();
    const Navigate = useNavigate();
@@ -23,8 +23,8 @@ const LoginForm = () => {
 
       dispatch(login(userData))
       console.log("userdata ",userData);
-
-   }
+      onCloseModal(); 
+   };
 
   return (
     <div>
@@ -73,7 +73,7 @@ const LoginForm = () => {
       </div>
 
     </div>
-  )
-}
+  );
+};
 
 export default LoginForm

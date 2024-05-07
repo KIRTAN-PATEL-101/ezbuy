@@ -18,10 +18,11 @@ import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@her
 import { deepPurple } from '@mui/material/colors'
 import { Menu, MenuItem, Button, Avatar } from '@mui/material'
 import { useLocation, useNavigate } from 'react-router-dom'
-import AuthModal from '../../Auth/AuthModal'
+import AuthModal from '../../Auth/AuthModal.jsx'
 import { useDispatch,useSelector } from 'react-redux'
 import { logout } from '../../../State/Auth/Action.js'
 import { getUser } from '../../../State/Auth/Action.js'
+import LoginForm from '../../Auth/LoginForm.jsx'
 
 
 
@@ -179,10 +180,12 @@ const handleOpen = () => {
   setOpenAuthModal(true)
 }
 
-const handleColse = () => {
+const handleClose = () => {
   setOpenAuthModal(false);
-
 }
+// const handleCloseModal = () => {
+//   setOpenAuthModal(false);
+// };
 
 const handleCategoryClick = (category, section, item, close) => {
   navigate(`/${category.id}/${section.id}/${item.name}`);
@@ -194,12 +197,12 @@ useEffect(()=>{
      dispatch(getUser(jwt))
   }
  
-},[jwt,auth.jwt])
+},[jwt, auth.jwt])
 
 useEffect(()=>{
 
   if(auth.user){
-    handleColse()
+    handleClose()
   }
   if(location.pathname==="/login"||location.pathname==="/register"){
     navigate(-1)
@@ -491,7 +494,7 @@ handleCloseUserMenu()
 
               <div className="ml-auto flex items-center">
                 <div>
-                {auth.use?.firstName ? (
+                {auth.user?.firstName ? (
                   <div>
                     <Avatar 
                       className='text-white'
@@ -500,7 +503,7 @@ handleCloseUserMenu()
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
                       sx={{bgcolor: deepPurple[500], color: "white", cursor: "pointer",}}
-                      >{auth.user?.firstName[0].toUpperCase()}</Avatar>
+                      >{auth.user.firstName[0].toUpperCase()}</Avatar>
                     <Menu
                       id="basic-menu"
                       anchorEl={anchorEl}
@@ -552,7 +555,9 @@ handleCloseUserMenu()
         </nav>
       </header>
 
-      <AuthModal handleClose={handleColse} open={openAuthModal} />
+      <AuthModal handleClose={handleClose} open={openAuthModal}>
+        <LoginForm onCloseModal={handleClose} />
+      </AuthModal>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Box, Typography } from '@mui/material';
+import { Modal, Box } from '@mui/material';
 import RegisterForm from './RegisterForm';
 import { useLocation } from 'react-router-dom';
 import LoginForm from './LoginForm';
@@ -21,6 +21,11 @@ const AuthModal = ({handleClose, open}) => {
 
   const location = useLocation();
 
+  const handleLoginSuccess = () => {
+    handleClose(); // Close the modal after successful login
+  };
+
+
   return (
     <div>
       <Modal
@@ -29,13 +34,14 @@ const AuthModal = ({handleClose, open}) => {
   aria-labelledby="modal-modal-title"
   aria-describedby="modal-modal-description"
 >
-  <Box sx={style}>
-    {location.pathname === '/login' ? <LoginForm /> : <RegisterForm />}
-
-
-
-  </Box>
-</Modal>
+<Box sx={style}>
+        {location.pathname === '/login' ? (
+          <LoginForm onCloseModal={handleLoginSuccess} /> // Pass handleLoginSuccess as prop
+        ) : (
+          <RegisterForm />
+        )}
+      </Box>
+    </Modal>
     </div>
   )
 }

@@ -18,7 +18,7 @@ const RegisterForm = () => {
          dispatch(getUser(jwt))
       }
      
-   },[jwt,auth.jwt])
+   },[jwt, auth.jwt, dispatch])
 
    const handleSubmit = (e) => {
       e.preventDefault();
